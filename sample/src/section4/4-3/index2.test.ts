@@ -1,31 +1,33 @@
 import { httpError } from '../../04/fetchers/fixtures';
-import * as Fetchers from './fetchers';
+import * as Fetchers from './fetchers'; // 本体をimport
 import { getGreet } from './index';
 
-// getMyProfile はapiのリクエストが発生する。getMyProfileをスタブし、データ取得に関わることをモックできる
-jest.mock('./fetchers');
+jest.mock('./fetchers'); // 1行目でimportしていた本体を、まるごとmock化して置き換える。exportされているメソッドを全てmockとして扱える。
 
-test('テスト名a', async () => {
-  ///FetchersオブジェクトのgetMyProfile。という意味
-  jest.spyOn(Fetchers, 'getMyProfile').mockResolvedValueOnce({
-    id: 'xxxxxxx-12345',
-    email: 's@hoge.jp',
+describe('全部テスト', () => {
+  test('テスト名', async () => {
+    // Fetchers.getMyProfilをスパイする。
+    // mockResolvedValueOnceはプロミスが成功時に使う。idとemailを含むオブジェクトを返す。
+    jest.spyOn(Fetchers, 'getMyProfile').mockResolvedValueOnce({
+      id: 'xxxxxxxx-2345',
+      email: 'sadfasdf.jp',
+    });
+    await expect(getGreet()).resolves.toBe('Hello, anonymous user!');
   });
-  expect(getGreet()).resolves.toBe('Hello , anonymous user'); // resolvesはPromise成功時
-});
 
-test('テスト名b', () => {
-  jest.spyOn(Fetchers, 'getMyProfile').mockResolvedValueOnce({
-    id: 'xxxxxxx-12345',
-    email: 's@hoge.jp',
-    name: 'taro',
+  test('テスト名', async () => {
+    jest.spyOn(Fetchers, 'getMyProfile').mockResolvedValueOnce({
+      id: 'xxxxxxxx-2345',
+      email: 'sadfasdf.jp',
+      name: 'Taro',
+    });
+    await expect(getGreet()).resolves.toBe('hello Taro');
   });
-  expect(getGreet()).resolves.toBe('hello taro'); // resolvesはPromise成功時
-});
 
-test('テスト名c', async () => {
-  jest.spyOn(Fetchers, 'getMyProfile').mockRejectedValueOnce(httpError);
-  await expect(getGreet()).rejects.toMatchObject({
-    err: { message: 'internal server error' },
+  test('エラーです', async () => {
+    jest.spyOn(Fetchers, 'getMyProfile').mockRejectedValueOnce(httpError);
+    await expect(getGreet()).rejects.toMatchObject({
+      err: { message: 'internal server error' },
+    });
   });
 });
