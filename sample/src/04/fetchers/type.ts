@@ -18,7 +18,7 @@ export type Article = {
 };
 
 export type Articles = {
-  articles: Article[];
+  articles: Article[]; // articles : [Article,Article,Article]
 };
 
 export type ArticleInput = {

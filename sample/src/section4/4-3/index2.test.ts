@@ -26,8 +26,28 @@ describe('全部テスト', () => {
 
   test('エラーです', async () => {
     jest.spyOn(Fetchers, 'getMyProfile').mockRejectedValueOnce(httpError);
+    //toMatchObject
     await expect(getGreet()).rejects.toMatchObject({
       err: { message: 'internal server error' },
     });
+  });
+
+  test('toMatchObject', () => {
+    const received = { a: 1, b: 2, c: 3 };
+    //toMatchObject一部が完全一致
+    expect(received).toMatchObject({ a: 1, b: 2 }); // 通る
+    expect(received).toMatchObject({ a: 1, b: 3 }); // 通らない
+  });
+
+  //例外のthrowは、trycatchでも検査できる
+  test('エラーです', async () => {
+    jest.spyOn(Fetchers, 'getMyProfile').mockRejectedValueOnce(httpError);
+    try {
+      await getGreet();
+    } catch (err) {
+      expect(err).toMatchObject({
+        err: { message: 'internal server error' },
+      });
+    }
   });
 });
