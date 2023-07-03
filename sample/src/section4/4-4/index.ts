@@ -9,7 +9,7 @@ export async function getMyArticleLinksByCategory(category: string) {
     console.log(category);
     return article.tags.includes(category);
   });
-  console.log(articles ? '0' : '1');
+  console.log(articles);
   if (!articles.length) {
     // 該当記事がない場合、null を返す
     return null;

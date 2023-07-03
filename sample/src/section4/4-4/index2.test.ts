@@ -36,7 +36,50 @@ test('指定したタグをもつ記事が一件以上ある場合、リンク�
     },
   ]);
 });
-
-test('テスト失敗', () => {
-  mockGetMyArticles(500);
+test('next.js', async () => {
+  mockGetMyArticles();
+  const data = await getMyArticleLinksByCategory('nextjs');
+  expect(data).toMatchObject([
+    {
+      link: '/articles/nextjs-link-component',
+      title: 'Next.js の Link コンポーネント',
+    },
+  ]);
 });
+
+test('テスト失敗', async () => {
+  mockGetMyArticles(500);
+  await getMyArticleLinksByCategory('testing').catch((err) => {
+    expect(err).toMatchObject({
+      err: { message: 'internal server error' },
+    });
+  });
+});
+
+test('テスト失敗', async () => {
+  mockGetMyArticles(500);
+  //mockGetMyArticles();
+  try {
+    const data = await getMyArticleLinksByCategory('testing');
+    expect(data).toMatchObject([
+      {
+        link: '/articles/howto-testing-with-typescript',
+        title: 'TypeScript を使ったテストの書き方',
+      },
+      {
+        link: '/articles/react-component-testing-with-jest',
+        title: 'Jest ではじめる React のコンポーネントテスト',
+      },
+    ]);
+  } catch (err) {
+    expect(err).toMatchObject({
+      err: { message: 'internal server error' },
+    });
+  }
+});
+
+/* エラーをハンドリングするときは、エラーを返す関数にcatchを入れる必要がる。
+ やり方は2種類。
+ 1,await getMyArticleLinksByCategory('testing').catch((err)=>{})
+ 2,try {}catch(err){}
+ 失敗に特化したテストの場合は1でいい。*/
