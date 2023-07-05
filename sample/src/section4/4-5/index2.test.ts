@@ -66,3 +66,14 @@ test('テスト名', () => {
   checkConfig(mockFn);
   expect(mockFn).toHaveBeenCalledWith({ mock: true, feature: { spy: true } });
 });
+
+test('部分的なオブジェクトの検証', () => {
+  const mockFn = jest.fn();
+  checkConfig(mockFn);
+  expect(mockFn).toHaveBeenCalledWith(
+    expect.objectContaining({
+      // objectContainingはオブジェクトの1部分を検証できる
+      mock: true, // mock: true, があるよね。
+    })
+  );
+});
