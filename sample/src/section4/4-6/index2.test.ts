@@ -2,9 +2,11 @@ import * as Fetchers from '../../04/fetchers';
 
 import { postMyArticle } from '../../04/fetchers';
 
-import { httpError, postMyArticleData } from '../../04/fetchers/fixtures';
+import { httpError,postMyArticleData } from '../../04/fetchers/fixtures';
 import { ArticleInput } from '../../04/fetchers/type';
 import { checkLength } from './index';
+
+jest.mock('../../04/fetchers');
 
 // api通信のレスポンスをモックしておく
 function mockPostMyArticle(input: ArticleInput, status = 200) {
@@ -46,5 +48,7 @@ test('テスト名', async () => {
   // モックされたpostMyArticleい値を入れる
   const data = await postMyArticle(input);
 
-  expect(data).toHaveBeenCalled();
+  expect(data).toMatchObject(expect.objectContaining(input));
+
+  expect(mock).toHaveBeenCalled();
 });
