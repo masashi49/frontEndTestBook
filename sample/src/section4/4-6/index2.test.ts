@@ -42,7 +42,7 @@ test('テスト名', async () => {
   const input = inputFactory(); // デフォルトで通る
   //const input = inputFactory({title : "" , body:""}); // 通らない
 
-  // 先にレスポンスをモックしておく
+  // api通信のモック(実際の関数を用いている)にinputを食わせる
   const mock = mockPostMyArticle(input);
 
   // モックされたpostMyArticleい値を入れる
@@ -51,4 +51,16 @@ test('テスト名', async () => {
   expect(data).toMatchObject(expect.objectContaining(input));
 
   expect(mock).toHaveBeenCalled();
+});
+
+test('テスト名a', async () => {
+  expect.assertions(2); // エラーを起こすときはexpect.assertionsしておく。
+  const input = inputFactory({ title: '', body: '' }); // テスト用の関数を用いて、失敗するオブジェクトを作成
+  const mock = mockPostMyArticle(input); // api通信のモック(実際の関数を用いている)にinputを食わせる
+
+  // 失敗するはずなので、catchする
+  await postMyArticle(input).catch((err) => {
+    expect(err).toMatchObject({ err: { message: expect.anything() } });
+  });
+  expect(mock).toHaveBeenCalled(); // mockが呼び出された。
 });
