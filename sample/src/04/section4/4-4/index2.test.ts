@@ -1,6 +1,6 @@
 import { getMyArticleLinksByCategory } from '.';
-import * as Fetchers from '../../04/fetchers';
-import { getMyArticlesData, httpError } from '../../04/fetchers/fixtures';
+import * as Fetchers from '../../fetchers';
+import { getMyArticlesData, httpError } from '../../fetchers/fixtures';
 
 jest.mock('../../04/fetchers');
 

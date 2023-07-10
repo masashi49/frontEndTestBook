@@ -1,7 +1,7 @@
 // import * as Fetchers from '../../04/fetchers';
 // import { getMyArticlesData, httpError } from '../../04/fetchers/fixtures';
 
-import { checkConfig } from '../../04/05/checkConfig';
+import { checkConfig } from '../../05/checkConfig';
 
 jest.mock('../../04/fetchers');
 

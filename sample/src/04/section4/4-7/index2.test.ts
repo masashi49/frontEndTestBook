@@ -4,7 +4,7 @@
  * jest.useRealTimers : jestに真のタイマーを使用するように指示
  */
 
-import { greetByTime } from './';
+import { greetByTime } from '.';
 
 describe('テスト名', () => {
   beforeAll(() => {

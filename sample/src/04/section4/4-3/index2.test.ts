@@ -1,4 +1,4 @@
-import { httpError } from '../../04/fetchers/fixtures';
+import { httpError } from '../../fetchers/fixtures';
 import * as Fetchers from './fetchers'; // 本体をimport
 import { getGreet } from './index';
 

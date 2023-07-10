@@ -1,9 +1,9 @@
-import * as Fetchers from '../../04/fetchers';
+import * as Fetchers from '../../fetchers';
 
-import { postMyArticle } from '../../04/fetchers';
+import { postMyArticle } from '../../fetchers';
 
-import { httpError,postMyArticleData } from '../../04/fetchers/fixtures';
-import { ArticleInput } from '../../04/fetchers/type';
+import { httpError, postMyArticleData } from '../../fetchers/fixtures';
+import { ArticleInput } from '../../fetchers/type';
 import { checkLength } from './index';
 
 jest.mock('../../04/fetchers');
