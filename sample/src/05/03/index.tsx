@@ -44,9 +44,10 @@ type Props = {
 export const Form = ({ name, onSubmit }: Props) => {
   return (
     <form
+      //もともとform要素にはonSubmitというイベントが存在しているのでそれ
       onSubmit={(event) => {
         event.preventDefault();
-        onSubmit?.(event);
+        onSubmit?.(event); // こちらは親からpropsされたただの関数、?.はオプショナルチェイニング
       }}
     >
       <h2>アカウント情報</h2>
