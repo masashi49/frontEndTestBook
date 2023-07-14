@@ -1,4 +1,4 @@
-import { ArticleListItem, ItemProps } from "./ArticleListItem";
+import { ArticleListItem, ItemProps } from './ArticleListItem';
 
 type Props = {
   items: ItemProps[];
