@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { ArticleList } from './ArticleList';
 import { items } from './fixture';
 
@@ -25,39 +25,27 @@ liタグは暗黙的にlistitemを持っている
      - ARIAってそもそも何？を学ぶ
 
  getAllByRoleはliが１つの時でも使えることを確認した。
+ 注意がいるのは、テスト対象でないliも取得してしまう。
 
-// 次は5-14
-
-
-
-
-
+正しいhtmlを実装し、getByRoleはそのタグが元々もっているものを使用するのが良い。
+<div role="listitem">リスト項目 1</div> これよりも
+<li>リスト項目 1</li> こっち使うほうが正しいhtml。
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## within
+対象を絞り込んで要素を取得することができる。
+getByLabelTextで場所を絞り込み、withinは、さらに詳細な調査目的で使う。
+絞り方はいろいろあるが、getByRole や getByTextといったアクセシビリティに基づくセレクタを使うのが良い；
+getByRole、getByText、getByLabelText、data-testid idなど全部使えない場合、最終手段としてquerySelectorを使う。
+const element = document.querySelector('div > span.my-specific-class');
 */
+
+test('items の数だけ一覧表示される', () => {
+  //const list = screen.getByRole('list'); // ulが2つある場合は失敗する。
+
+  //複数あるときはgetByLabelTextなどで属性を拾い、識別する。
+  //const list = document.getElementById('messages'); 型が HTMLElement | null となってしまい、list && ~　が必要となる。
+  const list = screen.getByLabelText('articleListUlul'); // aria-label を使用して特定の要素を絞るのもいいだろう。
+  expect(list).toBeInTheDocument();
+  expect(within(list).getAllByRole('listitem')).toHaveLength(3);
+});
