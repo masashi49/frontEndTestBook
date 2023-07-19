@@ -8,7 +8,6 @@ export const ArticleList = ({ items }: Props) => {
   return (
     <div>
       <h2>記事一覧</h2>
-      <h2>記事一覧</h2>
       {items.length ? (
         <>
           <ul aria-label="articleListUlul">

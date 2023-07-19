@@ -2,11 +2,9 @@ import { render, screen, within } from '@testing-library/react';
 import { ArticleList } from './ArticleList';
 import { items } from './fixture';
 
-beforeEach(() => {
-  render(<ArticleList items={items} />); // 毎回書くのがしんどいのでbeforeEacするのがよい
-});
-
 test('should first', () => {
+  render(<ArticleList items={items} />);
+
   expect(screen.getAllByRole('listitem')).toHaveLength(3);
   expect(
     screen.getByText(
@@ -32,7 +30,7 @@ liタグは暗黙的にlistitemを持っている
 <li>リスト項目 1</li> こっち使うほうが正しいhtml。
 
 
-## within
+## within 5-14
 対象を絞り込んで要素を取得することができる。
 getByLabelTextで場所を絞り込み、withinは、さらに詳細な調査目的で使う。
 絞り方はいろいろあるが、getByRole や getByTextといったアクセシビリティに基づくセレクタを使うのが良い；
@@ -40,7 +38,9 @@ getByRole、getByText、getByLabelText、data-testid idなど全部使えない�
 const element = document.querySelector('div > span.my-specific-class');
 */
 
-test('items の数だけ一覧表示される', () => {
+test('5-14', () => {
+  render(<ArticleList items={items} />); // 毎回書くのがしんどいのでbeforeEacするのがよい
+
   //const list = screen.getByRole('list'); // ulが2つある場合は失敗する。
 
   //複数あるときはgetByLabelTextなどで属性を拾い、識別する。
@@ -48,4 +48,13 @@ test('items の数だけ一覧表示される', () => {
   const list = screen.getByLabelText('articleListUlul'); // aria-label を使用して特定の要素を絞るのもいいだろう。
   expect(list).toBeInTheDocument();
   expect(within(list).getAllByRole('listitem')).toHaveLength(3);
+});
+
+test('5-15', () => {
+  render(<ArticleList items={[]} />);
+
+  const list = screen.queryByRole('list');
+  expect(list).not.toBeInTheDocument();
+  expect(list).toBeNull();
+  expect(screen.getByText('投稿記事がありません')).toBeInTheDocument();
 });
