@@ -21,3 +21,4 @@ test('テスト名', () => {
   // 名前がないのでこちらがかえる
   expect(getGreet()).resolves.toBe('Hello, anonymous user!');
 });
+  
