@@ -1,39 +1,59 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { InputAccount } from "./InputAccount";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { InputAccount } from './InputAccount';
 
 const user = userEvent.setup();
 
-test("fieldset のアクセシブルネームは、legend を引用している", () => {
+test('should first', async () => {
+  render(<InputAccount />);
+  const textbox = screen.getByRole('textbox', { name: 'メールアドレス' });
+  const mail = 'hoge@hoge.jp';
+  await user.type(textbox, mail); // メールアドレスを入力
+
+  expect(screen.getByDisplayValue(mail)).toBeInTheDocument();
+});
+
+// 下記は失敗する。5-24
+test('should first', async () => {
+  render(<InputAccount />);
+  const textbox = screen.getByRole('textbox', { name: 'パスワード' });
+  const pass = 'password';
+  await user.type(textbox, pass); // パスワードを入力
+
+  expect(screen.getByDisplayValue(pass)).toBeInTheDocument();
+});
+
+/////////////////////////
+test('fieldset のアクセシブルネームは、legend を引用している', () => {
   render(<InputAccount />);
   expect(
-    screen.getByRole("group", { name: "アカウント情報の入力" })
+    screen.getByRole('group', { name: 'アカウント情報の入力' })
   ).toBeInTheDocument();
 });
 
-test("メールアドレス入力欄", async () => {
+test('メールアドレス入力欄', async () => {
   render(<InputAccount />);
-  const textbox = screen.getByRole("textbox", { name: "メールアドレス" });
-  const value = "taro.tanaka@example.com";
+  const textbox = screen.getByRole('textbox', { name: 'メールアドレス' });
+  const value = 'taro.tanaka@example.com';
   await user.type(textbox, value);
   expect(screen.getByDisplayValue(value)).toBeInTheDocument();
 });
 
-test("パスワード入力欄", async () => {
+test('パスワード入力欄', async () => {
   render(<InputAccount />);
-  expect(() => screen.getByPlaceholderText("8文字以上で入力")).not.toThrow();
-  expect(() => screen.getByRole("textbox", { name: "パスワード" })).toThrow();
+  expect(() => screen.getByPlaceholderText('8文字以上で入力')).not.toThrow();
+  expect(() => screen.getByRole('textbox', { name: 'パスワード' })).toThrow();
 });
 
-test("パスワード入力欄", async () => {
+test('パスワード入力欄', async () => {
   render(<InputAccount />);
-  const password = screen.getByPlaceholderText("8文字以上で入力");
-  const value = "abcd1234";
+  const password = screen.getByPlaceholderText('8文字以上で入力');
+  const value = 'abcd1234';
   await user.type(password, value);
   expect(screen.getByDisplayValue(value)).toBeInTheDocument();
 });
 
-test("Snapshot: アカウント情報の入力フォームが表示される", () => {
+test('Snapshot: アカウント情報の入力フォームが表示される', () => {
   const { container } = render(<InputAccount />);
   expect(container).toMatchSnapshot();
 });
