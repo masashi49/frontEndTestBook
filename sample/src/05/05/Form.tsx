@@ -1,13 +1,14 @@
-import { useId, useState } from "react";
-import { Agreement } from "./Agreement";
-import { InputAccount } from "./InputAccount";
+import { useId, useState } from 'react';
+import { Agreement } from './Agreement';
+import { InputAccount } from './InputAccount';
 
 export const Form = () => {
   const [checked, setChecked] = useState(false);
   const headingId = useId();
   return (
     <form aria-labelledby={headingId}>
-      <h2 id={headingId}>新規アカウント登録</h2>
+      <span id={headingId}>新規登録</span>
+      <h2>テスト</h2>
       <InputAccount />
       <Agreement
         onChange={(event) => {

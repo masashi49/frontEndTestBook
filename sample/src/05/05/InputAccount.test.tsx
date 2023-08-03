@@ -13,14 +13,15 @@ test('should first', async () => {
   expect(screen.getByDisplayValue(mail)).toBeInTheDocument();
 });
 
-// 下記は失敗する。5-24
 test('should first', async () => {
   render(<InputAccount />);
-  const textbox = screen.getByRole('textbox', { name: 'パスワード' });
+  const textbox = screen.getByPlaceholderText('8文字以上で入力');
   const pass = 'password';
   await user.type(textbox, pass); // パスワードを入力
 
+  // input passwordはgetByRoleではとれない。roleを持たない。
   expect(screen.getByDisplayValue(pass)).toBeInTheDocument();
+  expect(()=> screen.getByRole("textbox" , {name:"パスワード"})).toThrow()
 });
 
 /////////////////////////

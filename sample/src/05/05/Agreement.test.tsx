@@ -13,6 +13,11 @@ test('should first', async () => {
   // 初期状態ではチェックがないよ
   expect(screen.getByRole('checkbox')).not.toBeChecked();
 });
+test('should first', async () => {
+  render(<Agreement />);
+  expect(screen.getByText(/を確認し、これに同意します/i)).toBeInTheDocument(); // 文字は正規表現をつかって確認できる
+  expect(screen.getByRole('checkbox')).not.toBeChecked();
+});
 
 /////////////////////////////////////////////
 
