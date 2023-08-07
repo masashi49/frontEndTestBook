@@ -33,6 +33,10 @@ expect(screen.getByText(/を確認し、これに同意します/i)).toBeInTheDo
 下記のようになった場合、先のものが name となる。
 h1~h6 の強さは関係ない、 aria-labelledby で登録されているものが name となる。
 
+## name が暗黙的に設定されるのが腑に落ちない
+
+label で囲われているテキスト + input 要素では name は label 内のテキストになるのが腑に落ちない、
+
 ```html
 //h2がname
 <form aria-labelledby="{headingId}">
@@ -50,9 +54,19 @@ h1~h6 の強さは関係ない、 aria-labelledby で登録されているもの
 ```
 
 ```html
-/spanがname
+//spanがname
 <form aria-labelledby="{headingId}">
   <span id="{headingId}">新規登録</span>
   <h2>テスト</h2>
 </form>
+```
+
+```html
+//nameはメールを入力してくださいこんにちわメールアドレス
+<label>
+  <span>メールを入力してください</span>
+  <p>こんにちわ</p>
+  メールアドレス
+  <input type="text" placeholder="example@test.com" />
+</label>
 ```

@@ -7,8 +7,7 @@ export const Form = () => {
   const headingId = useId();
   return (
     <form aria-labelledby={headingId}>
-      <span id={headingId}>新規登録</span>
-      <h2>テスト</h2>
+      <h2 id={headingId}>新規登録</h2>
       <InputAccount />
       <Agreement
         onChange={(event) => {
