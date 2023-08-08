@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render,screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { deliveryAddresses } from './fixtures';
 import { Form } from './Form';
@@ -78,6 +78,17 @@ describe('過去のお届け先がない場合', () => {
     render(<Form />);
     expect(screen.getByRole('group', { name: '連絡先' })).toBeInTheDocument();
     expect(screen.getByRole('group', { name: 'お届け先' })).toBeInTheDocument();
+  });
+
+  test('お届け先入力欄がある', async () => {
+    const [mockFn, onSubmit] = mockHandleSubmit();
+    render(<Form onSubmit={onSubmit} />);
+    const contactNumger = await inputContactNumber();
+    const deliverAddress = await inputDeliveryAddress();
+    await clickSubmit();
+    expect(mockFn).toHaveBeenCalledWith(
+      expect.objectContaining({ ...contactNumger, ...deliverAddress })
+    );
   });
 
   test('入力・送信すると、入力内容が送信される', async () => {
