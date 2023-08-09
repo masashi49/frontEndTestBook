@@ -1,4 +1,4 @@
-import { render,screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { deliveryAddresses } from './fixtures';
 import { Form } from './Form';
@@ -59,6 +59,7 @@ function mockHandleSubmit() {
   const mockFn = jest.fn();
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(event.currentTarget);
     const formData = new FormData(event.currentTarget);
     const data: { [k: string]: unknown } = {};
     formData.forEach((value, key) => (data[key] = value));
