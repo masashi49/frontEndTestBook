@@ -63,6 +63,22 @@ const hoge = () => {
   const hugeee = [new Set(numbers)];
   const hugee2 = [...new Set(numbers)];
 
+  let listUsers = [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Dave' },
+    { id: 3, name: 'Charlie' },
+    { id: 4, name: 'Bob' },
+  ];
+
+  listUsers.sort((a, b) => {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+
+  const lisssss = [...listUsers].sort((a, b) => a.name.localeCompare(b.name));
+  console.log(2222222222222222);
+  console.log(lisssss);
 };
 
 export const ContactNumber = () => {
