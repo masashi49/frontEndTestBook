@@ -77,7 +77,7 @@ const hoge = () => {
   });
 
   const lisssss = [...listUsers].sort((a, b) => a.name.localeCompare(b.name));
-  console.log(2222222222222222);
+  console.log(2);
   console.log(lisssss);
 };
 
