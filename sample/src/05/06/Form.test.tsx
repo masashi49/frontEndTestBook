@@ -111,6 +111,47 @@ describe('過去のお届け先がない場合', () => {
 
 describe('過去のお届け先がある場合', () => {
   test('should first', async () => {
+    const [mockFn, onSubmit] = mockHandleSubmit();
+    render(<Form deliveryAddresses={deliveryAddresses} onSubmit={onSubmit} />);
+    expect(screen.getByRole('group', { name: '連絡先' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: '新しいお届け先を登録しますか？',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: '過去のお届け先' })
+    ).toBeDisabled();
+    await user.click(screen.getByText('いいえ'));
+    expect(screen.getByRole('group', { name: '過去のお届け先' })).toBeEnabled();
+    const hoge = await inputContactNumber();
+    await clickSubmit();
+
+    expect(mockFn).toHaveBeenCalledWith(expect.objectContaining({ ...hoge }));
+  });
+  test('はいを押した場合', async () => {
+    const [mockFn, onSubmit] = mockHandleSubmit();
+    render(<Form deliveryAddresses={deliveryAddresses} onSubmit={onSubmit} />);
+    expect(screen.getByRole('group', { name: '連絡先' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: '新しいお届け先を登録しますか？',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: '過去のお届け先' })
+    ).toBeDisabled();
+    await user.click(screen.getByText('はい'));
+    expect(
+      screen.getByRole('group', { name: '新しいお届け先' })
+    ).toBeInTheDocument();
+    const hoge = await inputDeliveryAddress();
+    await clickSubmit();
+
+    expect(mockFn).toHaveBeenCalledWith(expect.objectContaining({ ...hoge }));
+  });
+
+  test('should first', async () => {
     render(<Form deliveryAddresses={deliveryAddresses} />);
     expect(
       screen.getByRole('group', { name: '新しいお届け先を登録しますか？' })
