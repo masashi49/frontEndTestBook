@@ -110,7 +110,7 @@ describe('過去のお届け先がない場合', () => {
 });
 
 describe('過去のお届け先がある場合', () => {
-  test('設問に答えるまで、お届け先を選べない', () => {
+  test('should first', async () => {
     render(<Form deliveryAddresses={deliveryAddresses} />);
     expect(
       screen.getByRole('group', { name: '新しいお届け先を登録しますか？' })
@@ -118,6 +118,20 @@ describe('過去のお届け先がある場合', () => {
     expect(
       screen.getByRole('group', { name: '過去のお届け先' })
     ).toBeDisabled();
+  });
+
+  test('いいえを選択、電話と名前を入力すると、内容が送信される', async () => {
+    const [mockFn, onSubmit] = mockHandleSubmit();
+    render(<Form deliveryAddresses={deliveryAddresses} onSubmit={onSubmit} />);
+    expect(
+      screen.getByRole('group', { name: '新しいお届け先を登録しますか？' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: '過去のお届け先' })
+    ).toBeDisabled();
+    const inputValues = await inputContactNumber();
+    await clickSubmit();
+    expect(mockFn).toHaveBeenCalledWith(expect.objectContaining(inputValues));
   });
 
   test('「いいえ」を選択・入力・送信すると、入力内容が送信される', async () => {
