@@ -6,7 +6,9 @@ exports[`Snapshot: items の数だけ一覧表示される 1`] = `
     <h2>
       記事一覧
     </h2>
-    <ul>
+    <ul
+      aria-label="articleListUlul"
+    >
       <li>
         <h3>
           TypeScript を使ったテストの書き方
@@ -45,6 +47,11 @@ exports[`Snapshot: items の数だけ一覧表示される 1`] = `
         >
           もっと見る
         </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        hello
       </li>
     </ul>
   </div>

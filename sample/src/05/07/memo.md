@@ -1,6 +1,7 @@
 #### まずは api 通信部分の mock を作る
 
 - test では postMyAddressMock の代わりに、mockPostMyAddress を呼び出すようにしておく
+- api通信を行うmockは、汎用的(/mock/api/とか)で使うもの、その時だけ(./)で使うものでディレクトリを分けるのがいいと思う。
 
 #### ui の操作処理を作る。各項目の入力。
 

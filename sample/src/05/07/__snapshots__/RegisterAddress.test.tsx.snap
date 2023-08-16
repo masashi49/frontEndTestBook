@@ -82,6 +82,11 @@ exports[`Snapshot: 登録フォームが表示される 1`] = `
         </button>
       </div>
     </form>
+    a
+    <p>
+      登録しました
+    </p>
+    b
   </div>
 </div>
 `;
