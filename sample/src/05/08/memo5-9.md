@@ -43,3 +43,37 @@ screen.getByRole("heading" , {level:2}) // h2が取れる
 
 <div role="heading" aria-level="1">見出し</div> // h属性を使えない場合はこのように指定する
 ```
+
+## アクセシブルネーム
+
+Accessible Name は HTML の name 属性とは関係がない。
+スクリーンリーダーで読み上げられるテキストを示す。
+
+```
+<button>送信</button> // アクセシブルネームは 送信
+<button><img alt="送信" src="画像.png"></button> //アクセシブルネームは送信
+
+<button><img src="画像.png"></button> // アクセシブルネームがない！必ず指定しよう
+```
+
+アクセシブルネームは様々な要因が絡んで決定されるので、下記を読んでまずは確認をしよう。
+(算出の仕様はこちら : [Accessible Name and Description Computation 1.2](https://www.w3.org/TR/accname-1.2/))
+
+## ロール名、アクセシブルネーム名を確認する
+
+主に 2 つの方法があります。
+
+- ブラウザの拡張機能を使用する
+- テストコード上で確認する
+
+```
+export const Form = ({ title, handleOnSubmit }) => {
+  return (
+    <form onSubmit={(event) => {~処理~}}>
+      <h1>タイトル</h1>
+      <p>{title}</p>
+      <button>決定</button>
+    </form>
+  );
+};
+```
