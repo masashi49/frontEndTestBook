@@ -1,19 +1,19 @@
 type Props = {
-  name: string;
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+  title: string;
+  handleOnSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 };
-export const Form = ({ name, onSubmit }: Props) => {
+export const Form = ({ title, handleOnSubmit }: Props) => {
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSubmit?.(event);
+        handleOnSubmit?.(event);
       }}
     >
-      <h2>アカウント情報</h2>
-      <p>{name}</p>
+      <h2>タイトル</h2>
+      <p>{title}</p>
       <div>
-        <button>編集する</button>
+        <button>決定</button>
       </div>
     </form>
   );

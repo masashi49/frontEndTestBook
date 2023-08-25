@@ -67,6 +67,7 @@ Accessible Name は HTML の name 属性とは関係がない。
 - テストコード上で確認する
 
 ```
+// 実装
 export const Form = ({ title, handleOnSubmit }) => {
   return (
     <form onSubmit={(event) => {~処理~}}>
@@ -76,4 +77,10 @@ export const Form = ({ title, handleOnSubmit }) => {
     </form>
   );
 };
+
+// test
+test('logRoles: アクセシブルネームを確認する', () => {
+  const { container } = render(<Form title='リスト' />);
+  logRoles(container);
+});
 ```

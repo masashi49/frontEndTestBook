@@ -1,4 +1,4 @@
-import { fireEvent, logRoles, render, screen } from '@testing-library/react';
+import { fireEvent,logRoles,render,screen } from '@testing-library/react';
 import { Form } from './Form';
 
 test('名前の表示', () => {
@@ -23,12 +23,12 @@ test('ボタンを押下すると、イベントハンドラーが呼ばれる',
   expect(mockFn).toHaveBeenCalled();
 });
 
-test('Snapshot: アカウント名「taro」が表示される', () => {
-  const { container } = render(<Form name='jaro' />);
+test('Snapshot: taitoru 「リスト」が表示される', () => {
+  const { container } = render(<Form title='リスト' />);
   expect(container).toMatchSnapshot();
 });
 
-test('logRoles: レンダリング結果からロール・アクセシブルネームを確認', () => {
-  const { container } = render(<Form name='taro' />);
+test('logRoles: アクセシブルネームを確認する', () => {
+  const { container } = render(<Form title='リスト' />);
   logRoles(container);
 });
