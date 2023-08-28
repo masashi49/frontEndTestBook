@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot: taitoru 「リスト」が表示される 1`] = `
+<div>
+  <form>
+    <h2>
+      タイトル
+    </h2>
+    <p>
+      リスト
+    </p>
+    <div>
+      <button>
+        決定
+      </button>
+    </div>
+  </form>
+</div>
+`;
