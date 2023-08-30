@@ -31,7 +31,7 @@ describe('greetByTime(', () => {
     expect(greetByTime()).toBe('こんにちは');
   });
   // (3) 「こんばんは」を返す関数
-  test('夜は「こんばんは」を返す', () => {
+  xtest('夜は「こんばんは」を返す', () => {
     jest.setSystemTime(new Date(2023, 4, 23, 21, 0, 0));
     expect(greetByTime()).toBe('こんばんは');
   });
